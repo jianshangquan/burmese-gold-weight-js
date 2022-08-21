@@ -1,0 +1,16 @@
+{
+  "name": "burmese-weight-js",
+  "version": "0.0.0",
+  "description": "Burmese weight",
+  "main": "./src/burmese-weight/index.js",
+  "repository": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "burmese-weight",
+    "weight"
+  ],
+  "author": "jianshangquan",
+  "license": "MIT"
+}
