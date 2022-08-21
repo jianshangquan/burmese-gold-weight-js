@@ -15,52 +15,42 @@
 2. Use BigDecimal for calculation due to [Floating point error in computing](https://betterprogramming.pub/why-is-0-1-0-2-not-equal-to-0-3-in-most-programming-languages-99432310d476)
 
 #### Usage
-```java
+```javascript
   // Usage
 
-  // From gram
-  BurmeseGoldWeight fromGram = new BurmeseGoldWeight(new SIWeight(1234));
-  BurmeseGoldWeight fromGram2 = new BurmeseGoldWeight(1234);
+// From gram
+const fromGram = new BurmeseGoldWeight(1234);
+const fromGram2 = new BurmeseGoldWeight(new SIWeight(1234));
 
-  // Use directly use with constructor
-  BurmeseGoldWeight ringWithCopper = new BurmeseGoldWeight(0,1,0,0); // ရွှေထည် ၁ကျပ်သား
-  BurmeseGoldWeight wastage = new BurmeseGoldWeight(0, 0, 1, 2); // အလျေ့ာအတွက် ၁ပဲ ၂ရွေး
-  BurmeseGoldWeight copper = new BurmeseGoldWeight(0, 0, 1, 0); // ကြေး(အတွင်းစပ်) ၁ပဲ
-
-
-  BurmeseGoldWeight purifiedGold = ringWithCopper.byBurmeseGoldQuality(15); // ၁၅ပဲရည် အခေါက်ရွှေချွတ်ပြီး
-  BurmeseGoldWeight purifiedGold2 = ringWithCopper.byInternationalGoldQuality(22); // 22/24 K အခေါက်ရွှေချွတ်ပြီး
-
-
-  BurmeseGoldWeight gold = ringWithCopper.add(wastage); // ရွှေထည် + အလျော့အတွက် = အထည်လုပ် အချိန်
-  BurmeseGoldWeight pureGold = ringWithCopper.substract(copper); // ရွှေထည် - ကြေး = အခေါက်
-
-
-  // ရောင်းစျေး/ ဝယ်စျေး
-  ringWithCopper.getBurmeseMarketValuePrice(3_000_000); // အခေါက်ရွှေ သိန်း၃၀ ပေါက်စျေး၏ ရွှေထည်ရောင်းစျေး
-  ringWithCopper.getBurmeseMarketValuePrice(
-          2_500_000, // အခေါက်ရွှေစျေး
-          50_000 // ခွာစျေး
-  ); // အခေါက်ရွှေ ၂၅သိန်း ပေါက်စျေး၏ ရွှေထည်ရောင်းစျေး;
+// Use directly use with constructor
+const righWithCopper =  new BurmeseGoldWeight({patetha: 0, kyat: 1, pae: 0, yway: 0}); // ရွှေထည် ၁ကျပ်သား
+const wastage =  new BurmeseGoldWeight({patetha: 0, kyat: 0, pae: 1, yway: 2}); // အလျေ့ာအတွက် ၁ပဲ ၂ရွေး
+const copper = new BurmeseGoldWeight({patetha: 0, pae: 0, pae: 1, yway: 0}); // ကြေး(အတွင်းစပ်) ၁ပဲ
 
 
 
-  // Conversion
-  ringWithCopper.toPatetha(); // စုစုပေါင်း ပိဿာအချိန်       => 0.01
-  ringWithCopper.toKyat(); // စုစုပေါင်း ကျပ်အချိန်           => 1
-  ringWithCopper.toPae(); // စုစုပေါင်း ပဲအချိန်              => 16
-  ringWithCopper.toYway(); // စုစုပေါင်း ရွှေးအချိန်           => 128
-  ringWithCopper.toGram(); // စုစုပေါင်း gram ဂရမ်အချိန်     => 16.66666666
+const purifiedGold = righWithCopper.byBurmeseGoldQuality(15); // ၁၅ပဲရည် အခေါက်ရွှေချွတ်ပြီး
+const purifiedGold2 = righWithCopper.byInternationalGoldQuality(22); // 22/24 K အခေါက်ရွှေချွတ်ပြီး
 
 
+const gold = righWithCopper.add(wastage); // ရွှေထည် + အလျော့အတွက် = အထည်လုပ် အချိန်
+const pureGold = righWithCopper.substract(copper); // ရွှေထည် - ကြေး = အခေါက်
 
-  // Printing
-  ringWithCopper.toString(); // Output: "0ပိဿာ 1ကျပ် 0ပဲ 0ရွေး";
-  ringWithCopper.print(BurmeseGoldWeight.PrintType.PATETHA); // Output: "0.01ပိဿာ"
-  ringWithCopper.print(BurmeseGoldWeight.PrintType.KYAT); // Output: "1ကျပ်"
-  ringWithCopper.print(BurmeseGoldWeight.PrintType.PAE); // Output: "16ပဲ"
-  ringWithCopper.print(BurmeseGoldWeight.PrintType.YWAY); // Output: "128ရွေး"
-  ringWithCopper.print(BurmeseGoldWeight.PrintType.GRAM); // Output: "16.66666666ဂရမ်"
+
+// ရောင်းစျေး/ ဝယ်စျေး
+const sellPrice = righWithCopper.getBurmeseMarketValuePrice(3_000_000); // အခေါက်ရွှေ သိန်း၃၀ ပေါက်စျေး၏ ရွှေထည်ရောင်းစျေး
+const sellPrice2 = righWithCopper.getBurmeseMarketValuePrice(
+    2_500_000, // အခေါက်ရွှေစျေး
+    50_000 // ခွာစျေး
+); // အခေါက်ရွှေ ၂၅သိန်း ပေါက်စျေး၏ ရွှေထည်ရောင်းစျေး;
+
+
+// Conversion
+righWithCopper.toString(); // စုစုပေါင်း ပိဿာအချိန်         => 0.01
+righWithCopper.toKyat(); // စုစုပေါင်း ကျပ်အချိန်            => 1
+righWithCopper.toPae(); // စုစုပေါင်း ပဲအချိန်               => 16
+righWithCopper.toYway(); // စုစုပေါင်း ရွှေးအချိန်            => 128 
+righWithCopper.toGram();// စုစုပေါင်း gram ဂရမ်အချိန်       => 16.66666666
 ```
 
 
