@@ -80,6 +80,11 @@ const BurmeseGoldWeight = function (weight) {
             pae = w.pae;
             yway = w.yway;
         }else if(typeof weight == 'object'){
+            if(weight.kyat < 0 && weight.kyat >= 100) throw new Error("Burmese Kyat must be between 0 ~ <100");
+            if(weight.pae < 0 && weight.pae >= 16) throw new Error("Burmese Pae must be between 0 ~ <16");
+            if(weight.yway < 0 && weight.yway >= 8) throw new Error("Burmese Kyat must be between 0 ~ <8");
+
+
             patetha = new BigNumber(weight.patetha.toString());
             kyat = new BigNumber(weight.kyat.toString());
             pae = new BigNumber(weight.pae.toString());
@@ -147,12 +152,14 @@ const BurmeseGoldWeight = function (weight) {
     }
 
     this.add = (burmeseGoldWeight) => {
+        if(!(burmeseGoldWeight instanceof BurmeseGoldWeight)) throw new Error('addition must be an instance of BurmeseGoldWeight');
         const pae = this.toPae().add(burmeseGoldWeight.toPae());
         const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
         return new BurmeseGoldWeight(gram);
     }
 
     this.substract = (burmeseGoldWeight) => {
+        if(!(burmeseGoldWeight instanceof BurmeseGoldWeight)) throw new Error('substraction must be an instance of BurmeseGoldWeight');
         const pae = this.toPae().minus(burmeseGoldWeight.toPae());
         const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
         return new BurmeseGoldWeight(gram);
