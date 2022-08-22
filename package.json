@@ -1,7 +1,7 @@
 {
   "name": "burmese-gold-weight-js",
   "version": "0.0.0",
-  "description": "Burmese weight",
+  "description": "Burmese gold weight",
   "main": "./src/index.js",
   "repository": {
     "type": "git",
@@ -12,8 +12,9 @@
     "webpack-watch": "npx webpack"
   },
   "keywords": [
-    "burmese-weight",
-    "weight"
+    "burmese-gold-weight",
+    "weight",
+    "gold-weight"
   ],
   "author": "jianshangquan",
   "license": "MIT",
