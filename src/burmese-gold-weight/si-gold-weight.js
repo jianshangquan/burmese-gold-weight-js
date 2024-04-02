@@ -1,8 +1,7 @@
-const BigNumber = require('bignumber.js');
+import BigNumber from "bignumber.js";
 
 const SIWeight = function (weight){
     const gram = new BigNumber(weight.toString());
-
     this.getGram = () => gram;
 }
 

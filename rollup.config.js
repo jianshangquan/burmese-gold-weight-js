@@ -29,7 +29,7 @@ export default [
     ],
     plugins: [
       // NEW
-    //   typescript(),
+      // typescript(),
       peerDepsExternal(),
 
     //   postcss({

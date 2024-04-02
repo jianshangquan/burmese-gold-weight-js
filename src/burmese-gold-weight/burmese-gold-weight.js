@@ -1,4 +1,4 @@
-const SIWeight = require('./si-gold-weight');
+const SIWeight = require('./si-gold-weight.js');
 const BigNumber = require('bignumber.js');
 
 
