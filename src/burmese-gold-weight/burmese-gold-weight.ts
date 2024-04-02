@@ -28,13 +28,21 @@ export interface BurmeseGoldWeightProps extends IPrototype{
 
 
 
+export interface BurmeseWeight{
+    patetha: number,
+    kyat: number,
+    pae: number,
+    yway: number
+}
+
+
 export class BurmeseGoldWeight{
     #patetha = new BigNumber('0');
     #kyat = new BigNumber('0');
     #pae = new BigNumber('0');
     #yway = new BigNumber('0');
 
-    constructor(weight: any | number | SIWeight | BurmeseGoldWeight){
+    constructor(weight: BurmeseWeight | number | SIWeight | BurmeseGoldWeight){
         if(typeof weight == 'number'){ // number in gram
             let w = this.#fromGram(new BigNumber(weight));
             this.#patetha = w.patetha;
