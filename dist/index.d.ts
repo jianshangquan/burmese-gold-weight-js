@@ -18,9 +18,15 @@ interface IPrototype {
 }
 interface BurmeseGoldWeightProps extends IPrototype {
 }
+interface BurmeseWeight {
+    patetha: number;
+    kyat: number;
+    pae: number;
+    yway: number;
+}
 declare class BurmeseGoldWeight {
     #private;
-    constructor(weight: any | number | SIWeight | BurmeseGoldWeight);
+    constructor(weight: number | BurmeseGoldWeight | BurmeseWeight | SIWeight);
     get patetha(): number;
     get kyat(): number;
     get pae(): number;
@@ -40,13 +46,13 @@ declare class BurmeseGoldWeight {
     toPae(): BigNumber;
     toYway(): BigNumber;
     toGram: () => BigNumber;
-    byBurmeseGoldQuality: (quality: number) => BurmeseGoldWeight;
-    byInternationalGoldQuality: (k: number) => BurmeseGoldWeight;
+    byBurmeseGoldQuality(quality: number): BurmeseGoldWeight;
+    byInternationalGoldQuality(k: number): BurmeseGoldWeight;
     add(burmeseGoldWeight: typeof BurmeseGoldWeight): BurmeseGoldWeight;
-    substract: (burmeseGoldWeight: typeof BurmeseGoldWeight) => BurmeseGoldWeight;
-    getBurmeseMarketValuePrice: (burmeseGoldSpotPrice: number, marketGaps: number) => BigNumber;
+    substract(burmeseGoldWeight: typeof BurmeseGoldWeight): BurmeseGoldWeight;
+    getBurmeseMarketValuePrice(burmeseGoldSpotPrice: number, marketGaps: number): BigNumber;
     toString(): string;
     print(printType: string): string;
 }
 
-export { BurmeseGoldWeight, type BurmeseGoldWeightProps, PrintType, SIWeight };
+export { BurmeseGoldWeight, type BurmeseGoldWeightProps, type BurmeseWeight, PrintType, SIWeight };

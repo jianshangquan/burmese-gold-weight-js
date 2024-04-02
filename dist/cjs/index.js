@@ -1,2 +1,357 @@
-"use strict";class e{#e=0;get gram(){return parseFloat(this.getGram().toString())}getGram(){return this.#e}}var t=/^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i,r=Math.ceil,n=Math.floor,i="[BigNumber Error] ",o=i+"Number primitive has more than 15 significant digits: ",s=1e14,u=14,a=9007199254740991,l=[1,10,100,1e3,1e4,1e5,1e6,1e7,1e8,1e9,1e10,1e11,1e12,1e13],f=1e7,c=1e9;function h(e){var t=0|e;return e>0||e===t?t:t-1}function p(e){for(var t,r,n=1,i=e.length,o=e[0]+"";n<i;){for(t=e[n++]+"",r=u-t.length;r--;t="0"+t);o+=t}for(i=o.length;48===o.charCodeAt(--i););return o.slice(0,i+1||1)}function g(e,t){var r,n,i=e.c,o=t.c,s=e.s,u=t.s,a=e.e,l=t.e;if(!s||!u)return null;if(r=i&&!i[0],n=o&&!o[0],r||n)return r?n?0:-u:s;if(s!=u)return s;if(r=s<0,n=a==l,!i||!o)return n?0:!i^r?1:-1;if(!n)return a>l^r?1:-1;for(u=(a=i.length)<(l=o.length)?a:l,s=0;s<u;s++)if(i[s]!=o[s])return i[s]>o[s]^r?1:-1;return a==l?0:a>l^r?1:-1}function w(e,t,r,o){if(e<t||e>r||e!==n(e))throw Error(i+(o||"Argument")+("number"==typeof e?e<t||e>r?" out of range: ":" not an integer: ":" not a primitive number: ")+String(e))}function y(e){var t=e.c.length-1;return h(e.e/u)==t&&e.c[t]%2!=0}function m(e,t){return(e.length>1?e.charAt(0)+"."+e.slice(1):e)+(t<0?"e":"e+")+t}function d(e,t,r){var n,i;if(t<0){for(i=r+".";++t;i+=r);e=i+e}else if(++t>(n=e.length)){for(i=r,t-=n;--t;i+=r);e+=i}else t<n&&(e=e.slice(0,t)+"."+e.slice(t));return e}var v=function e(v){var b,E,B,N,A,O,S,P,T,G,k=j.prototype={constructor:j,toString:null,valueOf:null},R=new j(1),I=20,x=4,_=-7,D=21,L=-1e7,M=1e7,U=!1,C=1,F=0,$={prefix:"",groupSize:3,secondaryGroupSize:0,groupSeparator:",",decimalSeparator:".",fractionGroupSize:0,fractionGroupSeparator:" ",suffix:""},q="0123456789abcdefghijklmnopqrstuvwxyz",Y=!0;function j(e,r){var i,s,l,f,c,h,p,g,y=this;if(!(y instanceof j))return new j(e,r);if(null==r){if(e&&!0===e._isBigNumber)return y.s=e.s,void(!e.c||e.e>M?y.c=y.e=null:e.e<L?y.c=[y.e=0]:(y.e=e.e,y.c=e.c.slice()));if((h="number"==typeof e)&&0*e==0){if(y.s=1/e<0?(e=-e,-1):1,e===~~e){for(f=0,c=e;c>=10;c/=10,f++);return void(f>M?y.c=y.e=null:(y.e=f,y.c=[e]))}g=String(e)}else{if(!t.test(g=String(e)))return B(y,g,h);y.s=45==g.charCodeAt(0)?(g=g.slice(1),-1):1}(f=g.indexOf("."))>-1&&(g=g.replace(".","")),(c=g.search(/e/i))>0?(f<0&&(f=c),f+=+g.slice(c+1),g=g.substring(0,c)):f<0&&(f=g.length)}else{if(w(r,2,q.length,"Base"),10==r&&Y)return z(y=new j(e),I+y.e+1,x);if(g=String(e),h="number"==typeof e){if(0*e!=0)return B(y,g,h,r);if(y.s=1/e<0?(g=g.slice(1),-1):1,j.DEBUG&&g.replace(/^0\.0*|\./,"").length>15)throw Error(o+e)}else y.s=45===g.charCodeAt(0)?(g=g.slice(1),-1):1;for(i=q.slice(0,r),f=c=0,p=g.length;c<p;c++)if(i.indexOf(s=g.charAt(c))<0){if("."==s){if(c>f){f=p;continue}}else if(!l&&(g==g.toUpperCase()&&(g=g.toLowerCase())||g==g.toLowerCase()&&(g=g.toUpperCase()))){l=!0,c=-1,f=0;continue}return B(y,String(e),h,r)}h=!1,(f=(g=E(g,r,10,y.s)).indexOf("."))>-1?g=g.replace(".",""):f=g.length}for(c=0;48===g.charCodeAt(c);c++);for(p=g.length;48===g.charCodeAt(--p););if(g=g.slice(c,++p)){if(p-=c,h&&j.DEBUG&&p>15&&(e>a||e!==n(e)))throw Error(o+y.s*e);if((f=f-c-1)>M)y.c=y.e=null;else if(f<L)y.c=[y.e=0];else{if(y.e=f,y.c=[],c=(f+1)%u,f<0&&(c+=u),c<p){for(c&&y.c.push(+g.slice(0,c)),p-=u;c<p;)y.c.push(+g.slice(c,c+=u));c=u-(g=g.slice(c)).length}else c-=p;for(;c--;g+="0");y.c.push(+g)}}else y.c=[y.e=0]}function W(e,t,r,n){var i,o,s,u,a;if(null==r?r=x:w(r,0,8),!e.c)return e.toString();if(i=e.c[0],s=e.e,null==t)a=p(e.c),a=1==n||2==n&&(s<=_||s>=D)?m(a,s):d(a,s,"0");else if(o=(e=z(new j(e),t,r)).e,u=(a=p(e.c)).length,1==n||2==n&&(t<=o||o<=_)){for(;u<t;a+="0",u++);a=m(a,o)}else if(t-=s,a=d(a,o,"0"),o+1>u){if(--t>0)for(a+=".";t--;a+="0");}else if((t+=o-u)>0)for(o+1==u&&(a+=".");t--;a+="0");return e.s<0&&i?"-"+a:a}function K(e,t){for(var r,n,i=1,o=new j(e[0]);i<e.length;i++)(!(n=new j(e[i])).s||(r=g(o,n))===t||0===r&&o.s===t)&&(o=n);return o}function H(e,t,r){for(var n=1,i=t.length;!t[--i];t.pop());for(i=t[0];i>=10;i/=10,n++);return(r=n+r*u-1)>M?e.c=e.e=null:r<L?e.c=[e.e=0]:(e.e=r,e.c=t),e}function z(e,t,i,o){var a,f,c,h,p,g,w,y=e.c,m=l;if(y){e:{for(a=1,h=y[0];h>=10;h/=10,a++);if((f=t-a)<0)f+=u,c=t,p=y[g=0],w=n(p/m[a-c-1]%10);else if((g=r((f+1)/u))>=y.length){if(!o)break e;for(;y.length<=g;y.push(0));p=w=0,a=1,c=(f%=u)-u+1}else{for(p=h=y[g],a=1;h>=10;h/=10,a++);w=(c=(f%=u)-u+a)<0?0:n(p/m[a-c-1]%10)}if(o=o||t<0||null!=y[g+1]||(c<0?p:p%m[a-c-1]),o=i<4?(w||o)&&(0==i||i==(e.s<0?3:2)):w>5||5==w&&(4==i||o||6==i&&(f>0?c>0?p/m[a-c]:0:y[g-1])%10&1||i==(e.s<0?8:7)),t<1||!y[0])return y.length=0,o?(t-=e.e+1,y[0]=m[(u-t%u)%u],e.e=-t||0):y[0]=e.e=0,e;if(0==f?(y.length=g,h=1,g--):(y.length=g+1,h=m[u-f],y[g]=c>0?n(p/m[a-c]%m[c])*h:0),o)for(;;){if(0==g){for(f=1,c=y[0];c>=10;c/=10,f++);for(c=y[0]+=h,h=1;c>=10;c/=10,h++);f!=h&&(e.e++,y[0]==s&&(y[0]=1));break}if(y[g]+=h,y[g]!=s)break;y[g--]=0,h=1}for(f=y.length;0===y[--f];y.pop());}e.e>M?e.c=e.e=null:e.e<L&&(e.c=[e.e=0])}return e}function V(e){var t,r=e.e;return null===r?e.toString():(t=p(e.c),t=r<=_||r>=D?m(t,r):d(t,r,"0"),e.s<0?"-"+t:t)}return j.clone=e,j.ROUND_UP=0,j.ROUND_DOWN=1,j.ROUND_CEIL=2,j.ROUND_FLOOR=3,j.ROUND_HALF_UP=4,j.ROUND_HALF_DOWN=5,j.ROUND_HALF_EVEN=6,j.ROUND_HALF_CEIL=7,j.ROUND_HALF_FLOOR=8,j.EUCLID=9,j.config=j.set=function(e){var t,r;if(null!=e){if("object"!=typeof e)throw Error(i+"Object expected: "+e);if(e.hasOwnProperty(t="DECIMAL_PLACES")&&(w(r=e[t],0,c,t),I=r),e.hasOwnProperty(t="ROUNDING_MODE")&&(w(r=e[t],0,8,t),x=r),e.hasOwnProperty(t="EXPONENTIAL_AT")&&((r=e[t])&&r.pop?(w(r[0],-c,0,t),w(r[1],0,c,t),_=r[0],D=r[1]):(w(r,-c,c,t),_=-(D=r<0?-r:r))),e.hasOwnProperty(t="RANGE"))if((r=e[t])&&r.pop)w(r[0],-c,-1,t),w(r[1],1,c,t),L=r[0],M=r[1];else{if(w(r,-c,c,t),!r)throw Error(i+t+" cannot be zero: "+r);L=-(M=r<0?-r:r)}if(e.hasOwnProperty(t="CRYPTO")){if((r=e[t])!==!!r)throw Error(i+t+" not true or false: "+r);if(r){if("undefined"==typeof crypto||!crypto||!crypto.getRandomValues&&!crypto.randomBytes)throw U=!r,Error(i+"crypto unavailable");U=r}else U=r}if(e.hasOwnProperty(t="MODULO_MODE")&&(w(r=e[t],0,9,t),C=r),e.hasOwnProperty(t="POW_PRECISION")&&(w(r=e[t],0,c,t),F=r),e.hasOwnProperty(t="FORMAT")){if("object"!=typeof(r=e[t]))throw Error(i+t+" not an object: "+r);$=r}if(e.hasOwnProperty(t="ALPHABET")){if("string"!=typeof(r=e[t])||/^.?$|[+\-.\s]|(.).*\1/.test(r))throw Error(i+t+" invalid: "+r);Y="0123456789"==r.slice(0,10),q=r}}return{DECIMAL_PLACES:I,ROUNDING_MODE:x,EXPONENTIAL_AT:[_,D],RANGE:[L,M],CRYPTO:U,MODULO_MODE:C,POW_PRECISION:F,FORMAT:$,ALPHABET:q}},j.isBigNumber=function(e){if(!e||!0!==e._isBigNumber)return!1;if(!j.DEBUG)return!0;var t,r,o=e.c,a=e.e,l=e.s;e:if("[object Array]"=={}.toString.call(o)){if((1===l||-1===l)&&a>=-c&&a<=c&&a===n(a)){if(0===o[0]){if(0===a&&1===o.length)return!0;break e}if((t=(a+1)%u)<1&&(t+=u),String(o[0]).length==t){for(t=0;t<o.length;t++)if((r=o[t])<0||r>=s||r!==n(r))break e;if(0!==r)return!0}}}else if(null===o&&null===a&&(null===l||1===l||-1===l))return!0;throw Error(i+"Invalid BigNumber: "+e)},j.maximum=j.max=function(){return K(arguments,-1)},j.minimum=j.min=function(){return K(arguments,1)},j.random=(N=9007199254740992,A=Math.random()*N&2097151?function(){return n(Math.random()*N)}:function(){return 8388608*(1073741824*Math.random()|0)+(8388608*Math.random()|0)},function(e){var t,o,s,a,f,h=0,p=[],g=new j(R);if(null==e?e=I:w(e,0,c),a=r(e/u),U)if(crypto.getRandomValues){for(t=crypto.getRandomValues(new Uint32Array(a*=2));h<a;)(f=131072*t[h]+(t[h+1]>>>11))>=9e15?(o=crypto.getRandomValues(new Uint32Array(2)),t[h]=o[0],t[h+1]=o[1]):(p.push(f%1e14),h+=2);h=a/2}else{if(!crypto.randomBytes)throw U=!1,Error(i+"crypto unavailable");for(t=crypto.randomBytes(a*=7);h<a;)(f=281474976710656*(31&t[h])+1099511627776*t[h+1]+4294967296*t[h+2]+16777216*t[h+3]+(t[h+4]<<16)+(t[h+5]<<8)+t[h+6])>=9e15?crypto.randomBytes(7).copy(t,h):(p.push(f%1e14),h+=7);h=a/7}if(!U)for(;h<a;)(f=A())<9e15&&(p[h++]=f%1e14);for(a=p[--h],e%=u,a&&e&&(f=l[u-e],p[h]=n(a/f)*f);0===p[h];p.pop(),h--);if(h<0)p=[s=0];else{for(s=-1;0===p[0];p.splice(0,1),s-=u);for(h=1,f=p[0];f>=10;f/=10,h++);h<u&&(s-=u-h)}return g.e=s,g.c=p,g}),j.sum=function(){for(var e=1,t=arguments,r=new j(t[0]);e<t.length;)r=r.plus(t[e++]);return r},E=function(){var e="0123456789";function t(e,t,r,n){for(var i,o,s=[0],u=0,a=e.length;u<a;){for(o=s.length;o--;s[o]*=t);for(s[0]+=n.indexOf(e.charAt(u++)),i=0;i<s.length;i++)s[i]>r-1&&(null==s[i+1]&&(s[i+1]=0),s[i+1]+=s[i]/r|0,s[i]%=r)}return s.reverse()}return function(r,n,i,o,s){var u,a,l,f,c,h,g,w,y=r.indexOf("."),m=I,v=x;for(y>=0&&(f=F,F=0,r=r.replace(".",""),h=(w=new j(n)).pow(r.length-y),F=f,w.c=t(d(p(h.c),h.e,"0"),10,i,e),w.e=w.c.length),l=f=(g=t(r,n,i,s?(u=q,e):(u=e,q))).length;0==g[--f];g.pop());if(!g[0])return u.charAt(0);if(y<0?--l:(h.c=g,h.e=l,h.s=o,g=(h=b(h,w,m,v,i)).c,c=h.r,l=h.e),y=g[a=l+m+1],f=i/2,c=c||a<0||null!=g[a+1],c=v<4?(null!=y||c)&&(0==v||v==(h.s<0?3:2)):y>f||y==f&&(4==v||c||6==v&&1&g[a-1]||v==(h.s<0?8:7)),a<1||!g[0])r=c?d(u.charAt(1),-m,u.charAt(0)):u.charAt(0);else{if(g.length=a,c)for(--i;++g[--a]>i;)g[a]=0,a||(++l,g=[1].concat(g));for(f=g.length;!g[--f];);for(y=0,r="";y<=f;r+=u.charAt(g[y++]));r=d(r,l,u.charAt(0))}return r}}(),b=function(){function e(e,t,r){var n,i,o,s,u=0,a=e.length,l=t%f,c=t/f|0;for(e=e.slice();a--;)u=((i=l*(o=e[a]%f)+(n=c*o+(s=e[a]/f|0)*l)%f*f+u)/r|0)+(n/f|0)+c*s,e[a]=i%r;return u&&(e=[u].concat(e)),e}function t(e,t,r,n){var i,o;if(r!=n)o=r>n?1:-1;else for(i=o=0;i<r;i++)if(e[i]!=t[i]){o=e[i]>t[i]?1:-1;break}return o}function r(e,t,r,n){for(var i=0;r--;)e[r]-=i,i=e[r]<t[r]?1:0,e[r]=i*n+e[r]-t[r];for(;!e[0]&&e.length>1;e.splice(0,1));}return function(i,o,a,l,f){var c,p,g,w,y,m,d,v,b,E,B,N,A,O,S,P,T,G=i.s==o.s?1:-1,k=i.c,R=o.c;if(!(k&&k[0]&&R&&R[0]))return new j(i.s&&o.s&&(k?!R||k[0]!=R[0]:R)?k&&0==k[0]||!R?0*G:G/0:NaN);for(b=(v=new j(G)).c=[],G=a+(p=i.e-o.e)+1,f||(f=s,p=h(i.e/u)-h(o.e/u),G=G/u|0),g=0;R[g]==(k[g]||0);g++);if(R[g]>(k[g]||0)&&p--,G<0)b.push(1),w=!0;else{for(O=k.length,P=R.length,g=0,G+=2,(y=n(f/(R[0]+1)))>1&&(R=e(R,y,f),k=e(k,y,f),P=R.length,O=k.length),A=P,B=(E=k.slice(0,P)).length;B<P;E[B++]=0);T=R.slice(),T=[0].concat(T),S=R[0],R[1]>=f/2&&S++;do{if(y=0,(c=t(R,E,P,B))<0){if(N=E[0],P!=B&&(N=N*f+(E[1]||0)),(y=n(N/S))>1)for(y>=f&&(y=f-1),d=(m=e(R,y,f)).length,B=E.length;1==t(m,E,d,B);)y--,r(m,P<d?T:R,d,f),d=m.length,c=1;else 0==y&&(c=y=1),d=(m=R.slice()).length;if(d<B&&(m=[0].concat(m)),r(E,m,B,f),B=E.length,-1==c)for(;t(R,E,P,B)<1;)y++,r(E,P<B?T:R,B,f),B=E.length}else 0===c&&(y++,E=[0]);b[g++]=y,E[0]?E[B++]=k[A]||0:(E=[k[A]],B=1)}while((A++<O||null!=E[0])&&G--);w=null!=E[0],b[0]||b.splice(0,1)}if(f==s){for(g=1,G=b[0];G>=10;G/=10,g++);z(v,a+(v.e=g+p*u-1)+1,l,w)}else v.e=p,v.r=+w;return v}}(),O=/^(-?)0([xbo])(?=\w[\w.]*$)/i,S=/^([^.]+)\.$/,P=/^\.([^.]+)$/,T=/^-?(Infinity|NaN)$/,G=/^\s*\+(?=[\w.])|^\s+|\s+$/g,B=function(e,t,r,n){var o,s=r?t:t.replace(G,"");if(T.test(s))e.s=isNaN(s)?null:s<0?-1:1;else{if(!r&&(s=s.replace(O,(function(e,t,r){return o="x"==(r=r.toLowerCase())?16:"b"==r?2:8,n&&n!=o?e:t})),n&&(o=n,s=s.replace(S,"$1").replace(P,"0.$1")),t!=s))return new j(s,o);if(j.DEBUG)throw Error(i+"Not a"+(n?" base "+n:"")+" number: "+t);e.s=null}e.c=e.e=null},k.absoluteValue=k.abs=function(){var e=new j(this);return e.s<0&&(e.s=1),e},k.comparedTo=function(e,t){return g(this,new j(e,t))},k.decimalPlaces=k.dp=function(e,t){var r,n,i,o=this;if(null!=e)return w(e,0,c),null==t?t=x:w(t,0,8),z(new j(o),e+o.e+1,t);if(!(r=o.c))return null;if(n=((i=r.length-1)-h(this.e/u))*u,i=r[i])for(;i%10==0;i/=10,n--);return n<0&&(n=0),n},k.dividedBy=k.div=function(e,t){return b(this,new j(e,t),I,x)},k.dividedToIntegerBy=k.idiv=function(e,t){return b(this,new j(e,t),0,1)},k.exponentiatedBy=k.pow=function(e,t){var o,s,a,l,f,c,h,p,g=this;if((e=new j(e)).c&&!e.isInteger())throw Error(i+"Exponent not an integer: "+V(e));if(null!=t&&(t=new j(t)),f=e.e>14,!g.c||!g.c[0]||1==g.c[0]&&!g.e&&1==g.c.length||!e.c||!e.c[0])return p=new j(Math.pow(+V(g),f?e.s*(2-y(e)):+V(e))),t?p.mod(t):p;if(c=e.s<0,t){if(t.c?!t.c[0]:!t.s)return new j(NaN);(s=!c&&g.isInteger()&&t.isInteger())&&(g=g.mod(t))}else{if(e.e>9&&(g.e>0||g.e<-1||(0==g.e?g.c[0]>1||f&&g.c[1]>=24e7:g.c[0]<8e13||f&&g.c[0]<=9999975e7)))return l=g.s<0&&y(e)?-0:0,g.e>-1&&(l=1/l),new j(c?1/l:l);F&&(l=r(F/u+2))}for(f?(o=new j(.5),c&&(e.s=1),h=y(e)):h=(a=Math.abs(+V(e)))%2,p=new j(R);;){if(h){if(!(p=p.times(g)).c)break;l?p.c.length>l&&(p.c.length=l):s&&(p=p.mod(t))}if(a){if(0===(a=n(a/2)))break;h=a%2}else if(z(e=e.times(o),e.e+1,1),e.e>14)h=y(e);else{if(0===(a=+V(e)))break;h=a%2}g=g.times(g),l?g.c&&g.c.length>l&&(g.c.length=l):s&&(g=g.mod(t))}return s?p:(c&&(p=R.div(p)),t?p.mod(t):l?z(p,F,x,undefined):p)},k.integerValue=function(e){var t=new j(this);return null==e?e=x:w(e,0,8),z(t,t.e+1,e)},k.isEqualTo=k.eq=function(e,t){return 0===g(this,new j(e,t))},k.isFinite=function(){return!!this.c},k.isGreaterThan=k.gt=function(e,t){return g(this,new j(e,t))>0},k.isGreaterThanOrEqualTo=k.gte=function(e,t){return 1===(t=g(this,new j(e,t)))||0===t},k.isInteger=function(){return!!this.c&&h(this.e/u)>this.c.length-2},k.isLessThan=k.lt=function(e,t){return g(this,new j(e,t))<0},k.isLessThanOrEqualTo=k.lte=function(e,t){return-1===(t=g(this,new j(e,t)))||0===t},k.isNaN=function(){return!this.s},k.isNegative=function(){return this.s<0},k.isPositive=function(){return this.s>0},k.isZero=function(){return!!this.c&&0==this.c[0]},k.minus=function(e,t){var r,n,i,o,a=this,l=a.s;if(t=(e=new j(e,t)).s,!l||!t)return new j(NaN);if(l!=t)return e.s=-t,a.plus(e);var f=a.e/u,c=e.e/u,p=a.c,g=e.c;if(!f||!c){if(!p||!g)return p?(e.s=-t,e):new j(g?a:NaN);if(!p[0]||!g[0])return g[0]?(e.s=-t,e):new j(p[0]?a:3==x?-0:0)}if(f=h(f),c=h(c),p=p.slice(),l=f-c){for((o=l<0)?(l=-l,i=p):(c=f,i=g),i.reverse(),t=l;t--;i.push(0));i.reverse()}else for(n=(o=(l=p.length)<(t=g.length))?l:t,l=t=0;t<n;t++)if(p[t]!=g[t]){o=p[t]<g[t];break}if(o&&(i=p,p=g,g=i,e.s=-e.s),(t=(n=g.length)-(r=p.length))>0)for(;t--;p[r++]=0);for(t=s-1;n>l;){if(p[--n]<g[n]){for(r=n;r&&!p[--r];p[r]=t);--p[r],p[n]+=s}p[n]-=g[n]}for(;0==p[0];p.splice(0,1),--c);return p[0]?H(e,p,c):(e.s=3==x?-1:1,e.c=[e.e=0],e)},k.modulo=k.mod=function(e,t){var r,n,i=this;return e=new j(e,t),!i.c||!e.s||e.c&&!e.c[0]?new j(NaN):!e.c||i.c&&!i.c[0]?new j(i):(9==C?(n=e.s,e.s=1,r=b(i,e,0,3),e.s=n,r.s*=n):r=b(i,e,0,C),(e=i.minus(r.times(e))).c[0]||1!=C||(e.s=i.s),e)},k.multipliedBy=k.times=function(e,t){var r,n,i,o,a,l,c,p,g,w,y,m,d,v,b,E=this,B=E.c,N=(e=new j(e,t)).c;if(!(B&&N&&B[0]&&N[0]))return!E.s||!e.s||B&&!B[0]&&!N||N&&!N[0]&&!B?e.c=e.e=e.s=null:(e.s*=E.s,B&&N?(e.c=[0],e.e=0):e.c=e.e=null),e;for(n=h(E.e/u)+h(e.e/u),e.s*=E.s,(c=B.length)<(w=N.length)&&(d=B,B=N,N=d,i=c,c=w,w=i),i=c+w,d=[];i--;d.push(0));for(v=s,b=f,i=w;--i>=0;){for(r=0,y=N[i]%b,m=N[i]/b|0,o=i+(a=c);o>i;)r=((p=y*(p=B[--a]%b)+(l=m*p+(g=B[a]/b|0)*y)%b*b+d[o]+r)/v|0)+(l/b|0)+m*g,d[o--]=p%v;d[o]=r}return r?++n:d.splice(0,1),H(e,d,n)},k.negated=function(){var e=new j(this);return e.s=-e.s||null,e},k.plus=function(e,t){var r,n=this,i=n.s;if(t=(e=new j(e,t)).s,!i||!t)return new j(NaN);if(i!=t)return e.s=-t,n.minus(e);var o=n.e/u,a=e.e/u,l=n.c,f=e.c;if(!o||!a){if(!l||!f)return new j(i/0);if(!l[0]||!f[0])return f[0]?e:new j(l[0]?n:0*i)}if(o=h(o),a=h(a),l=l.slice(),i=o-a){for(i>0?(a=o,r=f):(i=-i,r=l),r.reverse();i--;r.push(0));r.reverse()}for((i=l.length)-(t=f.length)<0&&(r=f,f=l,l=r,t=i),i=0;t;)i=(l[--t]=l[t]+f[t]+i)/s|0,l[t]=s===l[t]?0:l[t]%s;return i&&(l=[i].concat(l),++a),H(e,l,a)},k.precision=k.sd=function(e,t){var r,n,i,o=this;if(null!=e&&e!==!!e)return w(e,1,c),null==t?t=x:w(t,0,8),z(new j(o),e,t);if(!(r=o.c))return null;if(n=(i=r.length-1)*u+1,i=r[i]){for(;i%10==0;i/=10,n--);for(i=r[0];i>=10;i/=10,n++);}return e&&o.e+1>n&&(n=o.e+1),n},k.shiftedBy=function(e){return w(e,-9007199254740991,a),this.times("1e"+e)},k.squareRoot=k.sqrt=function(){var e,t,r,n,i,o=this,s=o.c,u=o.s,a=o.e,l=I+4,f=new j("0.5");if(1!==u||!s||!s[0])return new j(!u||u<0&&(!s||s[0])?NaN:s?o:1/0);if(0==(u=Math.sqrt(+V(o)))||u==1/0?(((t=p(s)).length+a)%2==0&&(t+="0"),u=Math.sqrt(+t),a=h((a+1)/2)-(a<0||a%2),r=new j(t=u==1/0?"5e"+a:(t=u.toExponential()).slice(0,t.indexOf("e")+1)+a)):r=new j(u+""),r.c[0])for((u=(a=r.e)+l)<3&&(u=0);;)if(i=r,r=f.times(i.plus(b(o,i,l,1))),p(i.c).slice(0,u)===(t=p(r.c)).slice(0,u)){if(r.e<a&&--u,"9999"!=(t=t.slice(u-3,u+1))&&(n||"4999"!=t)){+t&&(+t.slice(1)||"5"!=t.charAt(0))||(z(r,r.e+I+2,1),e=!r.times(r).eq(o));break}if(!n&&(z(i,i.e+I+2,0),i.times(i).eq(o))){r=i;break}l+=4,u+=4,n=1}return z(r,r.e+I+1,x,e)},k.toExponential=function(e,t){return null!=e&&(w(e,0,c),e++),W(this,e,t,1)},k.toFixed=function(e,t){return null!=e&&(w(e,0,c),e=e+this.e+1),W(this,e,t)},k.toFormat=function(e,t,r){var n,o=this;if(null==r)null!=e&&t&&"object"==typeof t?(r=t,t=null):e&&"object"==typeof e?(r=e,e=t=null):r=$;else if("object"!=typeof r)throw Error(i+"Argument not an object: "+r);if(n=o.toFixed(e,t),o.c){var s,u=n.split("."),a=+r.groupSize,l=+r.secondaryGroupSize,f=r.groupSeparator||"",c=u[0],h=u[1],p=o.s<0,g=p?c.slice(1):c,w=g.length;if(l&&(s=a,a=l,l=s,w-=s),a>0&&w>0){for(s=w%a||a,c=g.substr(0,s);s<w;s+=a)c+=f+g.substr(s,a);l>0&&(c+=f+g.slice(s)),p&&(c="-"+c)}n=h?c+(r.decimalSeparator||"")+((l=+r.fractionGroupSize)?h.replace(new RegExp("\\d{"+l+"}\\B","g"),"$&"+(r.fractionGroupSeparator||"")):h):c}return(r.prefix||"")+n+(r.suffix||"")},k.toFraction=function(e){var t,r,n,o,s,a,f,c,h,g,w,y,m=this,d=m.c;if(null!=e&&(!(f=new j(e)).isInteger()&&(f.c||1!==f.s)||f.lt(R)))throw Error(i+"Argument "+(f.isInteger()?"out of range: ":"not an integer: ")+V(f));if(!d)return new j(m);for(t=new j(R),h=r=new j(R),n=c=new j(R),y=p(d),s=t.e=y.length-m.e-1,t.c[0]=l[(a=s%u)<0?u+a:a],e=!e||f.comparedTo(t)>0?s>0?t:h:f,a=M,M=1/0,f=new j(y),c.c[0]=0;g=b(f,t,0,1),1!=(o=r.plus(g.times(n))).comparedTo(e);)r=n,n=o,h=c.plus(g.times(o=h)),c=o,t=f.minus(g.times(o=t)),f=o;return o=b(e.minus(r),n,0,1),c=c.plus(o.times(h)),r=r.plus(o.times(n)),c.s=h.s=m.s,w=b(h,n,s*=2,x).minus(m).abs().comparedTo(b(c,r,s,x).minus(m).abs())<1?[h,n]:[c,r],M=a,w},k.toNumber=function(){return+V(this)},k.toPrecision=function(e,t){return null!=e&&w(e,1,c),W(this,e,t,2)},k.toString=function(e){var t,r=this,n=r.s,i=r.e;return null===i?n?(t="Infinity",n<0&&(t="-"+t)):t="NaN":(null==e?t=i<=_||i>=D?m(p(r.c),i):d(p(r.c),i,"0"):10===e&&Y?t=d(p((r=z(new j(r),I+i+1,x)).c),r.e,"0"):(w(e,2,q.length,"Base"),t=E(d(p(r.c),i,"0"),10,e,n,!0)),n<0&&r.c[0]&&(t="-"+t)),t},k.valueOf=k.toJSON=function(){return V(this)},k._isBigNumber=!0,k[Symbol.toStringTag]="BigNumber",k[Symbol.for("nodejs.util.inspect.custom")]=k.valueOf,null!=v&&j.set(v),j}();const b=new v("100"),E=new v("16"),B=new v("128"),N=new v("8"),A=new v("16.66666666"),O=A.dividedBy(E),S=Object.freeze({KYAT:"KYAT",PAE:"PAE",YWAY:"YWAY",PATETHA:"PATETHA",GRAM:"GRAM"});class P{#t=new v("0");#r=new v("0");#n=new v("0");#i=new v("0");constructor(t){if("number"==typeof t){let e=this.#o(new v(t));this.#t=e.patetha,this.#r=e.kyat,this.#n=e.pae,this.#i=e.yway}else if(t instanceof e){let e=this.#o(t.getGram());this.#t=e.patetha,this.#r=e.kyat,this.#n=e.pae,this.#i=e.yway}else if("object"==typeof t){if(t.kyat<0&&t.kyat>=100)throw new Error("Burmese Kyat must be between 0 ~ <100");if(t.pae<0&&t.pae>=16)throw new Error("Burmese Pae must be between 0 ~ <16");if(t.yway<0&&t.yway>=8)throw new Error("Burmese Kyat must be between 0 ~ <8");this.#t=new v(t.patetha.toString()),this.#r=new v(t.kyat.toString()),this.#n=new v(t.pae.toString()),this.#i=new v(t.yway.toString())}}#o(e){const t=e.dividedBy(A);return this.#s(t)}#s(e){let t,r,n,i;const o=new v("1");return t=e.dividedBy(b),t=t.minus(t.modulo(o)).toString(),r=e.minus(new v(t).multipliedBy(b)),r=r.minus(r.modulo(o)).toString(),n=e.minus(new v(t).multipliedBy(b)).minus(new v(r)).multipliedBy(E),n=n.minus(n.modulo(o)).toString(),i=e.minus(new v(t).multipliedBy(b)).minus(new v(r)).minus(new v(n).dividedBy(E)).multipliedBy(B).toFixed(8),{patetha:v(t),kyat:v(r),pae:v(n),yway:v(i)}}get patetha(){return parseInt(this.getPatetha().toString())}get kyat(){return parseInt(this.getKyat().toString())}get pae(){return parseInt(this.getPae().toString())}get yway(){return parseFloat(this.getYway().toString())}get weight(){return{patetha:this.patetha,kyat:this.kyat,pae:this.pae,yway:this.yway}}getPatetha(){return this.#t}getKyat(){return this.#r}getPae(){return this.#n}getYway(){return this.#i}toPatetha(){return this.toKyat().dividedBy(b)}toKyat(){return this.toPae().dividedBy(E)}toPae(){return this.#t.multipliedBy(b.multipliedBy(E)).plus(this.#r.multipliedBy(E)).plus(this.#n).plus(this.#i.dividedBy(N))}toYway(){return this.toPae().dividedBy(N)}toGram=()=>this.toPae().multipliedBy(O);byBurmeseGoldQuality=e=>{if(isNaN(e))throw new Error("Burmese gold quality must be a number");if(e<0&&e>16)throw new Error("Burmese gold quality must betwee 0~16");const t=new v(e).dividedBy(new v("16")),r=this.toPae().multipliedBy(t),n=parseFloat(r.multipliedBy(O).toString());return new P(n)};byInternationalGoldQuality=e=>{if(isNaN(e))throw new Error('Gold quality "K" must be a number');if(e<0&&e>24)throw new Error("International gold quality must betwee 0~24");const t=new v(e).dividedBy(new v("24")).multipliedBy(new v("16")),r=this.toPae().multipliedBy(t),n=parseFloat(r.multipliedBy(O).toString());return new P(n)};add(e){if(!(e instanceof P))throw new Error("addition must be an instance of BurmeseGoldWeight");const t=this.toPae().plus(e.toPae()),r=parseFloat(t.multipliedBy(O).toString());return new P(r)}substract=e=>{if(!(e instanceof P))throw new Error("substraction must be an instance of BurmeseGoldWeight");const t=this.toPae().minus(e.toPae()),r=parseFloat(t.multipliedBy(O).toString());return new P(r)};getBurmeseMarketValuePrice=(e,t)=>this.toKyat().multipliedBy(e-(t&&!isNaN(t)?t:0));toString(){const{patetha:e,kyat:t,pae:r,yway:n}=this.weight;return`${e} ပိဿာ, ${t} ကျပ်, ${r} ပဲ, ${n} ရွေး`}print(e){switch(e){case S.KYAT:return`${this.toKyat().toString()} ကျပ်`;case S.PAE:return`${this.toPae().toString()} ပဲ`;case S.YWAY:return`${this.toYway().toString()} ရွေး`;case S.PATETHA:return`${this.toPatetha().toString()} ပိဿာ`;case S.GRAM:return`${this.toGram().toString()} ဂရမ်`}return this.toString()}}exports.BurmeseGoldWeight=P,exports.PrintType=S,exports.SIWeight=e;
+'use strict';
+
+var BigNumber = require('bignumber.js');
+
+class SIWeight {
+    #gram = 0;
+    get gram() {
+        return parseFloat(this.getGram().toString());
+    }
+    getGram() {
+        return this.#gram;
+    }
+}
+
+// const SIWeight = require('./si-gold-weight.js');
+const ONE_PATETHA_IN_KYAT = new BigNumber('100');
+const ONE_KYAT_IN_PAE = new BigNumber('16');
+const ONE_KYAT_IN_YWAY = new BigNumber('128');
+const ONE_PAE_IN_YWAY = new BigNumber('8');
+const ONE_KYAT_IN_GRAM = new BigNumber('16.66666666');
+const ONE_PAE_IN_GRAM = ONE_KYAT_IN_GRAM.dividedBy(ONE_KYAT_IN_PAE);
+const PrintType = Object.freeze({
+    KYAT: 'KYAT',
+    PAE: 'PAE',
+    YWAY: 'YWAY',
+    PATETHA: 'PATETHA',
+    GRAM: 'GRAM'
+});
+class BurmeseGoldWeight {
+    #patetha = new BigNumber('0');
+    #kyat = new BigNumber('0');
+    #pae = new BigNumber('0');
+    #yway = new BigNumber('0');
+    constructor(weight) {
+        if (typeof weight == 'number') { // number in gram
+            let w = this.#fromGram(new BigNumber(weight));
+            this.#patetha = w.patetha;
+            this.#kyat = w.kyat;
+            this.#pae = w.pae;
+            this.#yway = w.yway;
+        }
+        else if (weight instanceof SIWeight) {
+            let w = this.#fromGram(weight.getGram());
+            this.#patetha = w.patetha;
+            this.#kyat = w.kyat;
+            this.#pae = w.pae;
+            this.#yway = w.yway;
+        }
+        else if (typeof weight == 'object') {
+            const { patetha = 0, kyat = 0, pae = 0, yway = 0 } = weight;
+            if (kyat < 0 && kyat >= 100)
+                throw new Error("Burmese Kyat must be between 0 ~ <100");
+            if (pae < 0 && pae >= 16)
+                throw new Error("Burmese Pae must be between 0 ~ <16");
+            if (yway < 0 && yway >= 8)
+                throw new Error("Burmese Kyat must be between 0 ~ <8");
+            this.#patetha = new BigNumber(patetha.toString());
+            this.#kyat = new BigNumber(kyat.toString());
+            this.#pae = new BigNumber(pae.toString());
+            this.#yway = new BigNumber(yway.toString());
+        }
+    }
+    #fromGram(gram) {
+        const k = gram.dividedBy(ONE_KYAT_IN_GRAM);
+        return this.#kyatToBurmeseWeight(k);
+    }
+    #kyatToBurmeseWeight(kyat) {
+        let pa, k, p, y;
+        // console.log('total kyat', kyat.toString());
+        const mol = new BigNumber('1');
+        pa = kyat.dividedBy(ONE_PATETHA_IN_KYAT);
+        pa = pa.minus(pa.modulo(mol)).toString();
+        k = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT));
+        k = k.minus(k.modulo(mol)).toString();
+        p = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT)).minus(new BigNumber(k)).multipliedBy(ONE_KYAT_IN_PAE);
+        p = p.minus(p.modulo(mol)).toString();
+        y = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT))
+            .minus(new BigNumber(k))
+            .minus(new BigNumber(p).dividedBy(ONE_KYAT_IN_PAE))
+            .multipliedBy(ONE_KYAT_IN_YWAY).toFixed(8);
+        // console.log(pa, k, p, y);
+        return {
+            patetha: BigNumber(pa),
+            kyat: BigNumber(k),
+            pae: BigNumber(p),
+            yway: BigNumber(y)
+        };
+    }
+    // getter
+    get patetha() {
+        return parseInt(this.getPatetha().toString());
+    }
+    get kyat() {
+        return parseInt(this.getKyat().toString());
+    }
+    get pae() {
+        return parseInt(this.getPae().toString());
+    }
+    get yway() {
+        return parseFloat(this.getYway().toString());
+    }
+    get weight() {
+        return {
+            patetha: this.patetha,
+            kyat: this.kyat,
+            pae: this.pae,
+            yway: this.yway
+        };
+    }
+    getPatetha() {
+        return this.#patetha;
+    }
+    getKyat() {
+        return this.#kyat;
+    }
+    getPae() {
+        return this.#pae;
+    }
+    getYway() {
+        return this.#yway;
+    }
+    toPatetha() {
+        const kyat = this.toKyat();
+        return kyat.dividedBy(ONE_PATETHA_IN_KYAT);
+    }
+    toKyat() {
+        const pae = this.toPae();
+        return pae.dividedBy(ONE_KYAT_IN_PAE);
+    }
+    toPae() {
+        const result = this.#patetha.multipliedBy(ONE_PATETHA_IN_KYAT.multipliedBy(ONE_KYAT_IN_PAE))
+            .plus(this.#kyat.multipliedBy(ONE_KYAT_IN_PAE))
+            .plus(this.#pae)
+            .plus(this.#yway.dividedBy(ONE_PAE_IN_YWAY));
+        return result;
+    }
+    toYway() {
+        const pae = this.toPae();
+        return pae.dividedBy(ONE_PAE_IN_YWAY);
+    }
+    toGram = () => {
+        const pae = this.toPae();
+        return pae.multipliedBy(ONE_PAE_IN_GRAM);
+    };
+    byBurmeseGoldQuality(quality) {
+        if (isNaN(quality))
+            throw new Error('Burmese gold quality must be a number');
+        if (quality < 0 && quality > 16)
+            throw new Error('Burmese gold quality must betwee 0~16');
+        const qualityRatio = new BigNumber(quality).dividedBy(new BigNumber('16'));
+        const rawResult = this.toPae().multipliedBy(qualityRatio);
+        const gram = parseFloat(rawResult.multipliedBy(ONE_PAE_IN_GRAM).toString());
+        // console.log(gram);
+        return new BurmeseGoldWeight(gram);
+    }
+    byInternationalGoldQuality(k) {
+        if (isNaN(k))
+            throw new Error('Gold quality "K" must be a number');
+        if (k < 0 && k > 24)
+            throw new Error('International gold quality must betwee 0~24');
+        const qualityRatio = new BigNumber(k).dividedBy(new BigNumber('24')).multipliedBy(new BigNumber('16'));
+        const rawResult = this.toPae().multipliedBy(qualityRatio);
+        const gram = parseFloat(rawResult.multipliedBy(ONE_PAE_IN_GRAM).toString());
+        return new BurmeseGoldWeight(gram);
+    }
+    add(burmeseGoldWeight) {
+        if (!(burmeseGoldWeight instanceof BurmeseGoldWeight))
+            throw new Error('addition must be an instance of BurmeseGoldWeight');
+        const pae = this.toPae().plus(burmeseGoldWeight.toPae());
+        const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
+        return new BurmeseGoldWeight(gram);
+    }
+    substract(burmeseGoldWeight) {
+        if (!(burmeseGoldWeight instanceof BurmeseGoldWeight))
+            throw new Error('substraction must be an instance of BurmeseGoldWeight');
+        const pae = this.toPae().minus(burmeseGoldWeight.toPae());
+        const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
+        return new BurmeseGoldWeight(gram);
+    }
+    getBurmeseMarketValuePrice(burmeseGoldSpotPrice, marketGaps) {
+        return this.toKyat().multipliedBy(burmeseGoldSpotPrice - (marketGaps && !isNaN(marketGaps) ? marketGaps : 0));
+    }
+    toString() {
+        const { patetha, kyat, pae, yway } = this.weight;
+        return `${patetha} ပိဿာ, ${kyat} ကျပ်, ${pae} ပဲ, ${yway} ရွေး`;
+    }
+    print(printType) {
+        switch (printType) {
+            case PrintType.KYAT: return `${this.toKyat().toString()} ကျပ်`;
+            case PrintType.PAE: return `${this.toPae().toString()} ပဲ`;
+            case PrintType.YWAY: return `${this.toYway().toString()} ရွေး`;
+            case PrintType.PATETHA: return `${this.toPatetha().toString()} ပိဿာ`;
+            case PrintType.GRAM: return `${this.toGram().toString()} ဂရမ်`;
+        }
+        return this.toString();
+    }
+}
+// export const BurmeseGoldWeights : BurmeseGoldWeightProps = function (weight : string | number | typeof BurmeseGoldWeight) {
+//     let patetha = new BigNumber('0'), 
+//         kyat = new BigNumber('0'), 
+//         pae = new BigNumber('0'), 
+//         yway = new BigNumber('0');
+//     const kyatToBurmeseWeight = (kyat: BigNumber) => {
+//         let pa, k, p, y;
+//         // console.log('total kyat', kyat.toString());
+//         const mol = new BigNumber('1');
+//         pa = kyat.dividedBy(ONE_PATETHA_IN_KYAT);
+//         pa = pa.minus(pa.modulo(mol)).toString();
+//         k = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT));
+//         k = k.minus(k.modulo(mol)).toString();
+//         p = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT)).minus(new BigNumber(k)).multipliedBy(ONE_KYAT_IN_PAE);
+//         p = p.minus(p.modulo(mol)).toString();
+//         y = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT))
+//                 .minus(new BigNumber(k))
+//                 .minus(new BigNumber(p).dividedBy(ONE_KYAT_IN_PAE))
+//                 .multipliedBy(ONE_KYAT_IN_YWAY).toFixed(8);
+//         // console.log(pa, k, p, y);
+//         return {
+//             patetha: BigNumber(pa),
+//             kyat: BigNumber(k),
+//             pae: BigNumber(p),
+//             yway: BigNumber(y)
+//         };
+//     }
+//     const fromGram = (gram : BigNumber) => {
+//         const k = gram.dividedBy(ONE_KYAT_IN_GRAM);
+//         return kyatToBurmeseWeight(k);
+//     }
+//     constructor(weight);
+//     function constructor(weight : any | SIWeight){
+//         // console.log(typeof weight);
+//         // console.log(weight instanceof SIWeight)
+//         if(typeof weight == 'number'){ // number in gram
+//             let w = fromGram(new BigNumber(weight));
+//             patetha = w.patetha;
+//             kyat = w.kyat;
+//             pae = w.pae;
+//             yway = w.yway;
+//         }else if(weight instanceof SIWeight){
+//             let w = fromGram(weight.getGram() as any);
+//             patetha = w.patetha;
+//             kyat = w.kyat;
+//             pae = w.pae;
+//             yway = w.yway;
+//         }else if(typeof weight == 'object'){
+//             if(weight.kyat < 0 && weight.kyat >= 100) throw new Error("Burmese Kyat must be between 0 ~ <100");
+//             if(weight.pae < 0 && weight.pae >= 16) throw new Error("Burmese Pae must be between 0 ~ <16");
+//             if(weight.yway < 0 && weight.yway >= 8) throw new Error("Burmese Kyat must be between 0 ~ <8");
+//             patetha = new BigNumber(weight.patetha.toString());
+//             kyat = new BigNumber(weight.kyat.toString());
+//             pae = new BigNumber(weight.pae.toString());
+//             yway = new BigNumber(weight.yway.toString());
+//         }
+//     }
+//     // getter
+//     this.getPatetha = () => patetha;
+//     this.getKyat = () => kyat;
+//     this.getPae = () => pae;
+//     this.getYway = () => yway;
+//     this.toPatetha = () => {
+//         const kyat = this.toKyat();
+//         return kyat.dividedBy(ONE_PATETHA_IN_KYAT);
+//     }
+//     this.toKyat = () => {
+//         const pae = this.toPae();
+//         return pae.dividedBy(ONE_KYAT_IN_PAE);
+//     }
+//     this.toPae = () => {
+//         const result = patetha.multipliedBy(ONE_PATETHA_IN_KYAT.multipliedBy(ONE_KYAT_IN_PAE))
+//                             .plus(kyat.multipliedBy(ONE_KYAT_IN_PAE))
+//                             .plus(pae)
+//                             .plus(yway.dividedBy(ONE_PAE_IN_YWAY))
+//         return result;
+//     }
+//     this.toYway = () => {
+//         const pae = this.toPae();
+//         return pae.dividedBy(ONE_PAE_IN_YWAY);
+//     }
+//     this.toGram = () => {
+//         const pae = this.toPae();
+//         return pae.multipliedBy(ONE_PAE_IN_GRAM);
+//     }
+//     this.byBurmeseGoldQuality = (quality: number) => {
+//         if(isNaN(quality)) throw new Error('Burmese gold quality must be a number');
+//         if(quality < 0 && quality > 16) throw new Error('Burmese gold quality must betwee 0~16');
+//         const qualityRatio = new BigNumber(quality).dividedBy(new BigNumber('16'));
+//         const rawResult = this.toPae().multipliedBy(qualityRatio);
+//         const gram = parseFloat(rawResult.multipliedBy(ONE_PAE_IN_GRAM).toString());
+//         // console.log(gram);
+//         return new BurmeseGoldWeight(gram);
+//     }
+//     this.byInternationalGoldQuality = (k: number) => {
+//         if(isNaN(k)) throw new Error('Gold quality "K" must be a number');
+//         if(k < 0 && k > 24) throw new Error('International gold quality must betwee 0~24');
+//         const qualityRatio = new BigNumber(k).dividedBy(new BigNumber('24')).multipliedBy(new BigNumber('16'));
+//         const rawResult = this.toPae().multipliedBy(qualityRatio);
+//         const gram = parseFloat(rawResult.multipliedBy(ONE_PAE_IN_GRAM).toString());
+//         return new BurmeseGoldWeight(gram);
+//     }
+//     this.add = (burmeseGoldWeight: typeof BurmeseGoldWeight) => {
+//         if(!(burmeseGoldWeight instanceof BurmeseGoldWeight)) throw new Error('addition must be an instance of BurmeseGoldWeight');
+//         const pae = this.toPae().add(burmeseGoldWeight.toPae());
+//         const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
+//         return new BurmeseGoldWeight(gram);
+//     }
+//     this.substract = (burmeseGoldWeight: typeof BurmeseGoldWeight) => {
+//         if(!(burmeseGoldWeight instanceof BurmeseGoldWeight)) throw new Error('substraction must be an instance of BurmeseGoldWeight');
+//         const pae = this.toPae().minus(burmeseGoldWeight.toPae());
+//         const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
+//         return new BurmeseGoldWeight(gram);
+//     }
+//     this.getBurmeseMarketValuePrice = (burmeseGoldSpotPrice: number, marketGaps: number) => {
+//         return this.toKyat().multipliedBy(burmeseGoldSpotPrice - (marketGaps && !isNaN(marketGaps) ? marketGaps : 0))
+//     }
+// }
+// BurmeseGoldWeight.prototype = {
+//     get patetha() {
+//         return parseInt(this.getPatetha().toString());
+//     },
+//     get kyat() {
+//         return parseInt(this.getKyat().toString());
+//     },
+//     get pae() {
+//         return parseInt(this.getPae().toString());
+//     },
+//     get yway() {
+//         return parseFloat(this.getYway().toString());
+//     },
+//     get weight() {
+//         return {
+//             patetha: this.patetha,
+//             kyat: this.kyat,
+//             pae: this.pae,
+//             yway: this.yway
+//         };
+//     },
+//     toString: function(){
+//         const { patetha, kyat, pae, yway } = this.weight;
+//         return `${patetha} ပိဿာ, ${kyat} ကျပ်, ${pae} ပဲ, ${yway} ရွေး`;
+//     },
+//     print: function (printType: string){
+//         switch(printType){
+//             case PrintType.KYAT: return `${this.toKyat().toString()} ကျပ်`;
+//             case PrintType.PAE: return `${this.toPae().toString()} ပဲ`;
+//             case PrintType.YWAY: return `${this.toYway().toString()} ရွေး`;
+//             case PrintType.PATETHA: return `${this.toPatetha().toString()} ပိဿာ`;
+//             case PrintType.GRAM: return `${this.toGram().toString()} ဂရမ်`;
+//         }
+//         return this.toString();
+//     }
+// }
+// // expo.PrintType = PrintType;
+
+exports.BurmeseGoldWeight = BurmeseGoldWeight;
+exports.PrintType = PrintType;
+exports.SIWeight = SIWeight;
 //# sourceMappingURL=index.js.map

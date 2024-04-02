@@ -42,7 +42,7 @@ export class BurmeseGoldWeight{
     #pae = new BigNumber('0');
     #yway = new BigNumber('0');
 
-    constructor(weight: BurmeseWeight | number | SIWeight | BurmeseGoldWeight){
+    constructor(weight: number | BurmeseGoldWeight | BurmeseWeight | SIWeight){
         if(typeof weight == 'number'){ // number in gram
             let w = this.#fromGram(new BigNumber(weight));
             this.#patetha = w.patetha;
@@ -56,15 +56,15 @@ export class BurmeseGoldWeight{
             this.#pae = w.pae;
             this.#yway = w.yway;
         }else if(typeof weight == 'object'){
-            if(weight.kyat < 0 && weight.kyat >= 100) throw new Error("Burmese Kyat must be between 0 ~ <100");
-            if(weight.pae < 0 && weight.pae >= 16) throw new Error("Burmese Pae must be between 0 ~ <16");
-            if(weight.yway < 0 && weight.yway >= 8) throw new Error("Burmese Kyat must be between 0 ~ <8");
+            const { patetha = 0, kyat = 0, pae = 0, yway = 0 } : BurmeseWeight = weight;
+            if(kyat < 0 && kyat >= 100) throw new Error("Burmese Kyat must be between 0 ~ <100");
+            if(pae < 0 && pae >= 16) throw new Error("Burmese Pae must be between 0 ~ <16");
+            if(yway < 0 && yway >= 8) throw new Error("Burmese Kyat must be between 0 ~ <8");
 
-
-            this.#patetha = new BigNumber(weight.patetha.toString());
-            this.#kyat = new BigNumber(weight.kyat.toString());
-            this.#pae = new BigNumber(weight.pae.toString());
-            this.#yway = new BigNumber(weight.yway.toString());
+            this.#patetha = new BigNumber(patetha.toString());
+            this.#kyat = new BigNumber(kyat.toString());
+            this.#pae = new BigNumber(pae.toString());
+            this.#yway = new BigNumber(yway.toString());
         }
     }
 
@@ -184,7 +184,7 @@ export class BurmeseGoldWeight{
 
 
 
-    byBurmeseGoldQuality = (quality: number) => {
+    byBurmeseGoldQuality(quality: number) {
         if(isNaN(quality)) throw new Error('Burmese gold quality must be a number');
         if(quality < 0 && quality > 16) throw new Error('Burmese gold quality must betwee 0~16');
 
@@ -195,7 +195,7 @@ export class BurmeseGoldWeight{
         return new BurmeseGoldWeight(gram);
     }
 
-    byInternationalGoldQuality = (k: number) => {
+    byInternationalGoldQuality(k: number) {
         if(isNaN(k)) throw new Error('Gold quality "K" must be a number');
         if(k < 0 && k > 24) throw new Error('International gold quality must betwee 0~24');
 
@@ -212,19 +212,19 @@ export class BurmeseGoldWeight{
         return new BurmeseGoldWeight(gram);
     }
 
-    substract = (burmeseGoldWeight: typeof BurmeseGoldWeight) => {
+    substract(burmeseGoldWeight: typeof BurmeseGoldWeight) {
         if(!(burmeseGoldWeight instanceof BurmeseGoldWeight)) throw new Error('substraction must be an instance of BurmeseGoldWeight');
         const pae = this.toPae().minus(burmeseGoldWeight.toPae());
         const gram = parseFloat(pae.multipliedBy(ONE_PAE_IN_GRAM).toString());
         return new BurmeseGoldWeight(gram);
     }
 
-    getBurmeseMarketValuePrice = (burmeseGoldSpotPrice: number, marketGaps: number) => {
+    public getBurmeseMarketValuePrice(burmeseGoldSpotPrice: number, marketGaps: number){
         return this.toKyat().multipliedBy(burmeseGoldSpotPrice - (marketGaps && !isNaN(marketGaps) ? marketGaps : 0))
     }
 
-
-    toString(){
+    
+    public toString(){
         const { patetha, kyat, pae, yway } = this.weight;
         return `${patetha} ပိဿာ, ${kyat} ကျပ်, ${pae} ပဲ, ${yway} ရွေး`;
     }
