@@ -135,16 +135,16 @@ export class BurmeseGoldWeight{
 
     // getter
     get patetha(){
-        return parseInt(this.getPatetha().toString());
+        return this.getPatetha().toNumber();
     }
     get kyat(){
-        return parseInt(this.getKyat().toString());
+        return this.getKyat().toNumber();
     }
     get pae(){
-        return parseInt(this.getPae().toString());
+        return this.getPae().toNumber()
     }
     get yway(){
-        return parseFloat(this.getYway().toString());
+        return this.getYway().toNumber();
     }
 
 
