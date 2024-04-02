@@ -1,15 +1,20 @@
 {
   "name": "burmese-gold-weight-js",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "description": "Burmese gold weight",
-  "main": "./src/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/jianshangquan/burmese-weight-js.git"
   },
   "scripts": {
     "test": "nodemon ./test/app.js",
-    "webpack-watch": "npx webpack"
+    "webpack-watch": "npx webpack",
+    "rollup": "rollup -c --bundleConfigAsCjs"
   },
   "keywords": [
     "burmese-gold-weight",
@@ -20,5 +25,13 @@
   "license": "MIT",
   "dependencies": {
     "bignumber.js": "^9.1.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "webpack-cli": "^5.1.4"
   }
 }

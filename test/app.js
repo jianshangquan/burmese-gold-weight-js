@@ -1,4 +1,5 @@
 const {BurmeseGoldWeight, SIWeight} = require('./../src/burmese-gold-weight');
+// const {BurmeseGoldWeight, SIWeight} = require('./../dist/bundle');
 
 
 
