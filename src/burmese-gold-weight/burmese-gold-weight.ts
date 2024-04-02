@@ -36,6 +36,57 @@ export interface BurmeseWeight{
 }
 
 
+export interface PreciseBurmeseWeight{
+    patetha: BigNumber,
+    kyat: BigNumber,
+    pae: BigNumber,
+    yway: BigNumber
+}
+
+
+
+
+function kyatToBurmeseWeight(kyat: BigNumber) : PreciseBurmeseWeight {
+    let pa, k, p, y;
+    // console.log('total kyat', kyat.toString());
+
+    const mol = new BigNumber('1');
+
+    pa = kyat.dividedBy(ONE_PATETHA_IN_KYAT);
+    pa = pa.minus(pa.modulo(mol)).toString();
+
+    k = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT));
+    k = k.minus(k.modulo(mol)).toString();
+
+    p = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT)).minus(new BigNumber(k)).multipliedBy(ONE_KYAT_IN_PAE);
+    p = p.minus(p.modulo(mol)).toString();
+
+    y = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT))
+            .minus(new BigNumber(k))
+            .minus(new BigNumber(p).dividedBy(ONE_KYAT_IN_PAE))
+            .multipliedBy(ONE_KYAT_IN_YWAY).toFixed(8);
+
+
+    // console.log(pa, k, p, y);
+
+    return {
+        patetha: BigNumber(pa),
+        kyat: BigNumber(k),
+        pae: BigNumber(p),
+        yway: BigNumber(y)
+    };
+}
+
+
+
+function fromGram(gram : BigNumber) {
+    const k = gram.dividedBy(ONE_KYAT_IN_GRAM);
+    return kyatToBurmeseWeight(k);
+}
+
+
+
+
 export class BurmeseGoldWeight{
     #patetha = new BigNumber('0');
     #kyat = new BigNumber('0');
@@ -44,13 +95,13 @@ export class BurmeseGoldWeight{
 
     constructor(weight: number | BurmeseGoldWeight | BurmeseWeight | SIWeight){
         if(typeof weight == 'number'){ // number in gram
-            let w = this.#fromGram(new BigNumber(weight));
+            let w = fromGram(new BigNumber(weight));
             this.#patetha = w.patetha;
             this.#kyat = w.kyat;
             this.#pae = w.pae;
             this.#yway = w.yway;
         }else if(weight instanceof SIWeight){
-            let w = this.#fromGram(weight.getGram() as any);
+            let w = fromGram(weight.getGram() as any);
             this.#patetha = w.patetha;
             this.#kyat = w.kyat;
             this.#pae = w.pae;
@@ -69,41 +120,16 @@ export class BurmeseGoldWeight{
     }
 
 
-    #fromGram(gram : BigNumber) {
-        const k = gram.dividedBy(ONE_KYAT_IN_GRAM);
-        return this.#kyatToBurmeseWeight(k);
+    public static fromKyat(kyat: number) : BurmeseGoldWeight{
+        const { patetha, kyat: k , pae, yway } = kyatToBurmeseWeight(BigNumber(kyat));
+        return new BurmeseGoldWeight({ 
+            patetha: patetha.toNumber(), 
+            pae: pae.toNumber(), 
+            yway: yway.toNumber(), 
+            kyat: k.toNumber()
+        });
     }
 
-    #kyatToBurmeseWeight(kyat: BigNumber) {
-        let pa, k, p, y;
-        // console.log('total kyat', kyat.toString());
-
-        const mol = new BigNumber('1');
-
-        pa = kyat.dividedBy(ONE_PATETHA_IN_KYAT);
-        pa = pa.minus(pa.modulo(mol)).toString();
-
-        k = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT));
-        k = k.minus(k.modulo(mol)).toString();
-
-        p = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT)).minus(new BigNumber(k)).multipliedBy(ONE_KYAT_IN_PAE);
-        p = p.minus(p.modulo(mol)).toString();
-
-        y = kyat.minus(new BigNumber(pa).multipliedBy(ONE_PATETHA_IN_KYAT))
-                .minus(new BigNumber(k))
-                .minus(new BigNumber(p).dividedBy(ONE_KYAT_IN_PAE))
-                .multipliedBy(ONE_KYAT_IN_YWAY).toFixed(8);
-
-
-        // console.log(pa, k, p, y);
-
-        return {
-            patetha: BigNumber(pa),
-            kyat: BigNumber(k),
-            pae: BigNumber(p),
-            yway: BigNumber(y)
-        };
-    }
 
 
 

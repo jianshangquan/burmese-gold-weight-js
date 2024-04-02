@@ -18,9 +18,16 @@ export interface BurmeseWeight {
     pae: number;
     yway: number;
 }
+export interface PreciseBurmeseWeight {
+    patetha: BigNumber;
+    kyat: BigNumber;
+    pae: BigNumber;
+    yway: BigNumber;
+}
 export declare class BurmeseGoldWeight {
     #private;
     constructor(weight: number | BurmeseGoldWeight | BurmeseWeight | SIWeight);
+    static fromKyat(kyat: number): BurmeseGoldWeight;
     get patetha(): number;
     get kyat(): number;
     get pae(): number;
@@ -35,6 +42,7 @@ export declare class BurmeseGoldWeight {
     getKyat(): BigNumber;
     getPae(): BigNumber;
     getYway(): BigNumber;
+    set(weight: BurmeseWeight): void;
     toPatetha(): BigNumber;
     toKyat(): BigNumber;
     toPae(): BigNumber;
