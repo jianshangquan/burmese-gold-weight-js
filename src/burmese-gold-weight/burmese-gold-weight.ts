@@ -154,6 +154,15 @@ export class BurmeseGoldWeight{
 
 
 
+    set(weight: BurmeseWeight){
+        const { kyat = this.#kyat, pae = this.#pae, yway = this.#yway, patetha = this.patetha } = weight;
+        this.#kyat = BigNumber(kyat || 0);
+        this.#pae = BigNumber(pae);
+        this.#yway = BigNumber(yway);
+        this.#patetha = BigNumber(patetha);
+    }
+
+
     toPatetha(){
         const kyat = this.toKyat();
         return kyat.dividedBy(ONE_PATETHA_IN_KYAT);
